@@ -8,4 +8,4 @@ then
     yay -Syu --noconfirm --noprogressbar ${packages}
 fi
 
-exec /bin/bash
+exec vspipe
