@@ -8,12 +8,10 @@ ENV JUPYTER_PASSWORD_REQUIRED = True
 RUN yay -Syu --noconfirm --noprogressbar python-pip
 
 # Installing and enabling yuuno
-RUN sudo pip3 install yuuno
-RUN sudo yuuno jupyter install
+RUN sudo pip3 install jupyterlab
+RUN sudo pip3 install yuuno --pre
 
 # Entrypoint
 USER root
 WORKDIR /home
-#COPY /jupyter/entrypoint.sh /entrypoint.sh
-#ENTRYPOINT [ "/bin/bash", "/entrypoint.sh" ]
-ENTRYPOINT [ "jupyter", "notebook" ]
+ENTRYPOINT [ "jupyter", "lab", "--allow-root" ]

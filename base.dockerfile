@@ -1,4 +1,8 @@
-FROM archlinux/base
+FROM archlinux:base
+
+# Fixing weird keyring fuckery
+RUN pacman-key --init
+RUN pacman -Sy --noconfirm --noprogressbar archlinux-keyring && pacman -Su --noconfirm --noprogressbar
 
 # Add user, group sudo
 RUN pacman -Syu --noconfirm --noprogressbar base-devel && \
@@ -19,8 +23,6 @@ RUN git clone https://aur.archlinux.org/yay.git && \
 RUN yay -Syu --noconfirm --noprogressbar --removemake vapoursynth-git
 
 # Installing plugins
-#COPY /vapoursynth/install-plugins.sh /install-plugins.sh
-#ENTRYPOINT [ "/bin/bash", "/install-plugins.sh" ]
 RUN yay -Syu --noconfirm --noprogressbar \
     vapoursynth-plugin-addgrain-git \
     vapoursynth-plugin-bm3d-git \
